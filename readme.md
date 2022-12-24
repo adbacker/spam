@@ -1,11 +1,20 @@
 SPAM
 state page action model
 
-* aims to address a number of maintinablity and oraganizational issues with the page object model
-* heavily influenced by the journeyman/screenplay test pattern
+* the page object model for UI test framework has significant maintaiability issues
+https://johnfergusonsmart.com/beyond-page-objects-liberate-chains-ui-think/
+https://cucumber.io/blog/bdd/understanding-screenplay-(part-1)/
+https://www.slideshare.net/RiverGlide/refactoring-page-objects-the-screenplay-pattern
 
 
-Tasks
+While SPAM isn't the screenplay pattern, it is heavily influenced by it.  This is an in-progress implementation using SPAM to test the petclinic web app.
+
+https://github.com/spring-projects/spring-petclinic
+
+
+Core SPAM concepts:
+
+Task
 
 Tasks are a logical user goal.  Create an order.  Change a password.  Check employee info.
 Tasks are made up of actions and queries.
@@ -29,8 +38,3 @@ the only thing kept in the page model files are page selectors.  no business log
 Validator
 
 Validators encapsulate complex compound validation test steps
-
-
-This implementation is built around testing the sample petclinic web app:
-
-https://github.com/spring-projects/spring-petclinic
