@@ -1,0 +1,8 @@
+export enum SpecialtyType {
+    RADIOLOGY,
+    PATHOLOGY,
+    IMMUMOLOGY,
+    DENTAL,
+    ORTHOPEDIC_SURGERY,
+    GENERAL_SURGERY
+}
