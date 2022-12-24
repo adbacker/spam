@@ -29,3 +29,8 @@ the only thing kept in the page model files are page selectors.  no business log
 Validator
 
 Validators encapsulate complex compound validation test steps
+
+
+This implementation is built around testing the sample petclinic web app:
+
+https://github.com/spring-projects/spring-petclinic
