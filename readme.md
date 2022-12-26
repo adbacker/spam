@@ -27,7 +27,7 @@ Query
 
 Queries read the state of the system under test.  They shouldn't change state.  Queries are made up of interactions and possibly other queries.
 
-Interaction (ixn)
+Interaction (abbreviated ixn because we're lazy.  Kinda like i18n for internationalization ;-) )
 
 From a UI perspective, interactions are the atomic system interactions.  Pushing a button, filling in a text box, making a selection from a drop down.
 
@@ -88,4 +88,24 @@ ixn/page/OwnerInfoPageIxn
 action/CreateOwnerAction
 
 validator/ValidateOwnerCreated
+
+
+First up ... menu header page!
+
+The menu header is a bit tricky.  If the window is less than a certain # of pixels wide, a menu button appears.  More than the pixel limit and the links show directly - no menu button.
+
+Hrmf.  What to do, what to do, what to do...
+First instinct may be to put in an if statement.  "Hey, if the browser window is > threshold then..."
+Bad idea.  You should KNOW and CONTROL your inputs as much as possible to make asserting on the results more reliable.
+
+tl;dr:
+You might think "but what if I want to test varitions?  Picking randomly from a list means I can accomplish two things at once - test different values AND the primary functionality!"  This is a often a really bad idea.  Needing/wanting variation means you don't know that all the inputs === expected outputs.  If you want to test variations, write a test explicitly for testing variation ... so that when the test fails you KNOW that you were testing variations and you know where to start looking if it fails.
+
+I've been in situations where flaky tests were finally, after weeks, traced down to one opton in a large "random" set of inputs that triggered the fail.  Since it'd run once and fail (in a manner that didn't directly point to the input) and then run again 10-20x just fine it was assumed to be flakiness im the system under test.  <insert facepalm>
+
+Back to your regularly scheduled test breakdown.  
+
+In order to make sure we're seeing what we expect to see, we'll make sure the browser window is small enough that the menu icon should NOT show up.  If we want to (and we should), later on another test will explicitly check for responsive design elements.
+
+
 
