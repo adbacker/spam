@@ -6,7 +6,7 @@ describe("Create owner tests", () => {
 
     beforeEach("beforeEach stuff", () => {
         cy.visit("http://localhost:8080");
-        cy.viewport(550, 750);
+        cy.viewport(550, 1000);
 
     });
 
@@ -14,6 +14,8 @@ describe("Create owner tests", () => {
         // given the user does not exist
         // attemptimg to create the owner
         // should be successful 
+
+        
 
     });
 })

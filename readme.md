@@ -1,19 +1,27 @@
 # SPAM
 ## state page action model
 
+SPAM came out of several frustrations:
+
 * the page object model for UI test framework has significant maintaiability issues
 https://johnfergusonsmart.com/beyond-page-objects-liberate-chains-ui-think/
 https://cucumber.io/blog/bdd/understanding-screenplay-(part-1)/
 https://www.slideshare.net/RiverGlide/refactoring-page-objects-the-screenplay-pattern
+* Multiple people contributing to an automation framework put stuff in different places.  Sometimes the same person will put the same kinda stuff in different places depending on the day and whether they remember where they put it before.
+* Figuring out whether something is already built can be all but impossible given the above.
 
+SPAM gives concrete guidance on where to put what, how to get at it, and how to build tests with it.  Of course, YMMV but it'll give you some place to start.
 
- SPAM isn't the screenplay pattern.  It is a way of organizing and abstracting building out test code such that - if you so desire - the screenplay pattern can be used with it.  That's the goal.  This tutorial will be updated as I figure out how that all shakes out.  
- 
- Screenplay doesn't give you concrete examples as to where to put your actions, queries, interactions, or models.  This does.  
+ If you're failiar with the screenplay pattern, you'll see some similar verbage.  That's intentional.  While SPAM isn't the screenplay pattern, it is organization and abstraction building blocks that can be used with the screenplay pattern. 
 
- All that to say, this is an example implementation using SPAM to test the petclinic web app. ( https://github.com/spring-projects/spring-petclinic )  You'll need the petclinic app running locally in order for the tests here to work.
+SPAM came out of frustration with maintaining POM based frameworks as they passed a certain size.  Using the page object model with petclinic app as simple as petclinic could be reasonably maintainable.  But if your apps are of any complexity (and let's face it, if you're reading this yours is) SPAM will let you scale to thousands of tests without tearing your hair out.  Well, less hair anyway.
 
-One bit of history ... SPAM came out of frustration with maintaining POM based frameworks as they passed a certain size.  Using POM with an app this simple would be entirely maintainable.  SPAM is overkill.  But if your apps are of any complexity (and let's face it, if you're reading this yours is) SPAM will let you scale to thousands of tests without tearing your hair out.  Well, less hair anyway.
+This is an example implementation using SPAM to test the petclinic web app. ( https://github.com/spring-projects/spring-petclinic )  You'll need the petclinic app running locally in order for the tests here to work.  While you can download source and build/run, the easiest way is to install docker and pull their prebuilt image:
+ ```
+ docker run -p 8080:8080 springcommunity/spring-framework-petclinic
+```
+
+(22.12.26 ... well, it would if the app worked correctly from the docker image.  It doesn't seem to at the moment.  Bug has been filed.  In the meantime, clone/download the repo and build/run via maven and it works fine.)
 
 
 ## Core SPAM concepts:
@@ -44,7 +52,8 @@ the only thing kept in the page model files are page selectors.  no business log
 Validators encapsulate complex compound validation test steps
 
 
-So how do we even get started?  Well at the beginning of course ... which in this case is at the end.
+## Where to start?
+Well at the beginning of course ... which in this case is at the end.
 
 Looking at our petclinic app example, there's no login, so no users.  Let's assume it's an admin for arguments sake.  We want to test:
 
@@ -168,7 +177,10 @@ ixn/page/FindOwnerPageIxn is similarly straightforward so let's move on to somet
 
 ### ixn/page/OwnerInfoPageIxn
 
-The owner info page has a couple of interesting points.  One is that it's got two tables we need to figure out how to deal with. Tables can the proverbial witch with a capital B.  Easy to do poorly, hard to do in a robust and maintainable manner.
+The owner info page has a couple of interesting points.  One is that it's got two tables we need to figure out how to deal with. Tables can the proverbial witch with a capital B.  Easy to do poorly, hard to do in a robust and maintainable manner.  So let's detour into
+
+
+## Dealing with tables
 
 My current secret sauce leverages the increadibly handy cypress-get-table plugin.  ( https://github.com/roggerfe/cypress-get-table )  This wonderful bit of kit takes in the root of a standard table structure (ie using table, th, tr and td tags) and returns a json representation.  With some helper methods on top it makes for a nicely abstracted way to deal with tables.   
 
@@ -187,17 +199,15 @@ export class TableIxn {
     }
 }
 ```
-which returns the parsed json.
+The .getTable() returns the parsed json.
 
-"Ok", you respond, "I still have to munge and fold, spindle, and mutilate"  Well, yes.  Kinda.  But not really.  
+"Ok", you respond, "I still have to munge and fold, spindle, and mutilate"  Well, yes.  Kinda.  But not really.  This is where the magic of TableQuery comes in.
 
-We'll take a slight diversion here and talk about our first Query object - TableQuery.
+### TableQuery
 
-query/TableQuery
+TableQuery abstracts out querying all manner of combinations of data in rows, data in columns, what's the data in the given column based on the value of a different column, etc.
 
-This lets us do some generic searches and parsing against the structured json that is returned in a reasonably abstracted manner.  
-
-For a first taste, look at test/smoke/TableTests.ts.  This loads the tabletest.html in the same directory and exercises the TableQuery logic against it.  
+Look at test/smoke/TableTests.ts for examples.  This loads the tabletest.html in the same directory and exercises the TableQuery logic against it.  
 
 
 
