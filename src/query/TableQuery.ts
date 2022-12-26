@@ -36,7 +36,6 @@ export class TableQuery {
      */
     public static hasColumnWithRowValue(table: any, columnToSearch: string, rowValueToFind: string): Cypress.Chainable<boolean> {
         return TableQuery.getRowNumberWithColumnValue(table,columnToSearch,rowValueToFind)
-        // @ts-ignore yes, all paths DO return a code value you nitwit.
         .then( foundInRow => {
             if (foundInRow >= 0) {
                 return true;
@@ -55,9 +54,9 @@ export class TableQuery {
      * @returns integer
      */
     public static getRowNumberWithColumnValue(tableContents: any, columnToSearch: string, valueToMatch: string): Cypress.Chainable<number> {
+        debugger
         if (TableQuery.hasColumn(tableContents,columnToSearch)) {
-            // @ts-ignore I know o implicitly has an any type, and I'm cool with that.
-            const foundIndex:number = tableContents.findIndex(o => o[columnToSearch] === valueToMatch);
+            const foundIndex:number = tableContents.findIndex(o => (o[columnToSearch]).trim() === valueToMatch);
             return cy.wrap(foundIndex);
         } else {
             return cy.wrap(-1);

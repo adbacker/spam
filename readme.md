@@ -1,7 +1,13 @@
-# SPAM
-## state page action model
+Hello!  And welcome to...
 
-SPAM came out of several frustrations:
+# SPAM
+## State Page Action Model 
+## (a UI/api test framework pattern implemented with cypress and typescript)
+
+This is putting pen to paper (fingers to keyboard) to capture the methodology I've gravitated to in replacement of the page object model.  This project is still in progress  (until this disclaimer is removed) so if it seems incomplete, that's why.  If it looks incomplete and hasn't been updated for months or years I probably won the lottery or died in a horrible industrial accident involving a crate of toothpaste, several unreasonably large tomatoes, and a very disgruntled giraffe.
+
+
+SPAM came out of a number of frustrations:
 
 * the page object model for UI test framework has significant maintaiability issues
 https://johnfergusonsmart.com/beyond-page-objects-liberate-chains-ui-think/
@@ -10,7 +16,7 @@ https://www.slideshare.net/RiverGlide/refactoring-page-objects-the-screenplay-pa
 * Multiple people contributing to an automation framework put stuff in different places.  Sometimes the same person will put the same kinda stuff in different places depending on the day and whether they remember where they put it before.
 * Figuring out whether something is already built can be all but impossible given the above.
 
-SPAM gives concrete guidance on where to put what, how to get at it, and how to build tests with it.  Of course, YMMV but it'll give you some place to start.
+SPAM gives concrete guidance on where to put what, how to get at it, and how to build tests with it.  Framework coding standards.  Of course, YMMV but it'll give you some place to start.
 
  If you're failiar with the screenplay pattern, you'll see some similar verbage.  That's intentional.  While SPAM isn't the screenplay pattern, it is organization and abstraction building blocks that can be used with the screenplay pattern. 
 
@@ -35,6 +41,7 @@ Tasks are made up of actions and queries.
 
 Actions change the state of the system under test.  Actions are made up of other actions, interactions, and queries.
 
+
 ### Query
 
 Queries read the state of the system under test.  They shouldn't change state.  Queries are made up of interactions and possibly other queries.
@@ -43,9 +50,11 @@ Interaction (abbreviated ixn because we're lazy.  Kinda like i18n for internatio
 
 From a UI perspective, interactions are the atomic system interactions.  Pushing a button, filling in a text box, making a selection from a drop down.
 
+
 ### Page model objects
 
 the only thing kept in the page model files are page selectors.  no business logic, no action, just the bare selectors
+
 
 ### Validator
 
@@ -117,7 +126,7 @@ First instinct may be to put in an if statement.  "Hey, if the browser window is
 
 > I've been in situations where flaky tests were finally, after weeks, traced down to one opton in a large "random" set of inputs that triggered the fail.  Since it'd run once and fail (in a manner that didn't directly point to the input) and then run again 10-20x just fine it was assumed to be flakiness im the system under test.  <insert facepalm>
 
-> Back to your regularly scheduled test breakdown.  
+> Back to your regularly scheduled test breakdown.
 
 
 In order to make sure we're seeing what we expect to see, we'll make sure the browser window is large enough that the menu icon should NOT show up.  We'll use a different test to explicitly check for responsive design elements.
@@ -209,8 +218,9 @@ TableQuery abstracts out querying all manner of combinations of data in rows, da
 
 Look at test/smoke/TableTests.ts for examples.  This loads the tabletest.html in the same directory and exercises the TableQuery logic against it.  
 
-
-
+At this point in our journey we've yet to talk about/implement table column logic.  Looking at
+src/validator/ValidateOwnerInTableResults
+we're still using hardcoded column names for validation.  We'll abstract those out in a bit for more flexibility.  
 
 
 
