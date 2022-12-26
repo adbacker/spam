@@ -168,7 +168,39 @@ ixn/page/FindOwnerPageIxn is similarly straightforward so let's move on to somet
 
 ### ixn/page/OwnerInfoPageIxn
 
-The owner info page has a couple of interesting points.  One is that it's got two tables we need to figure out how to deal with in a robust and maintainable fashion.
+The owner info page has a couple of interesting points.  One is that it's got two tables we need to figure out how to deal with. Tables can the proverbial witch with a capital B.  Easy to do poorly, hard to do in a robust and maintainable manner.
+
+My current secret sauce leverages the increadibly handy cypress-get-table plugin.  ( https://github.com/roggerfe/cypress-get-table )  This wonderful bit of kit takes in the root of a standard table structure (ie using table, th, tr and td tags) and returns a json representation.  With some helper methods on top it makes for a nicely abstracted way to deal with tables.   
+
+To wit, first we grab the table object itself:
+```
+    public static getOwnerInfoTable(): Cypress.Chainable {
+        return TableIxn.getParsedTable(OwnerInfoPage.ownerInfoTable);
+    }
+```
+and then pass it into a table ixn class
+```
+export class TableIxn {
+    public static getParsedTable(tableLocator: string): Cypress.Chainable {
+        // @ts-ignore yes, getTable does work
+        return cy.get(tableLocator).getTable();
+    }
+}
+```
+which returns the parsed json.
+
+"Ok", you respond, "I still have to munge and fold, spindle, and mutilate"  Well, yes.  Kinda.  But not really.  
+
+We'll take a slight diversion here and talk about our first Query object - TableQuery.
+
+query/TableQuery
+
+This lets us do some generic searches and parsing against the structured json that is returned in a reasonably abstracted manner.  
+
+For a first taste, look at test/smoke/TableTests.ts.  This loads the tabletest.html in the same directory and exercises the TableQuery logic against it.  
+
+
+
 
 
 
