@@ -54,8 +54,10 @@ export class TableQuery {
      * @returns integer
      */
     public static getRowNumberWithColumnValue(tableContents: any, columnToSearch: string, valueToMatch: string): Cypress.Chainable<number> {
+        debugger
         if (TableQuery.hasColumn(tableContents,columnToSearch)) {
             const foundIndex:number = tableContents.findIndex(o => (o[columnToSearch]).trim() === valueToMatch);
+            debugger
             return cy.wrap(foundIndex);
         } else {
             return cy.wrap(-1);
@@ -72,7 +74,6 @@ export class TableQuery {
     public static getColumnValueAtRow(tableContents: any, columnToSearch: string, rowNum: number): Cypress.Chainable<string> {
         const row = tableContents[rowNum];
         const returnVal: string = row[columnToSearch];
-        debugger
         return cy.wrap(returnVal);
     }
 
@@ -93,7 +94,7 @@ export class TableQuery {
                 if (rowNum >= 0) { // insure column xists
                     const returnRecord = table[rowNum];
                     if (null != returnRecord[columnTypeOfReturnValue]) {
-                        const returnValue = returnRecord[columnTypeOfReturnValue];
+                        const returnValue = returnRecord[columnTypeOfReturnValue].trim();
                         return cy.wrap(returnValue);
                     }
                     return cy.wrap(null);

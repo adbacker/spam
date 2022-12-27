@@ -22,12 +22,21 @@ SPAM gives concrete guidance on where to put what, how to get at it, and how to 
 
 SPAM came out of frustration with maintaining POM based frameworks as they passed a certain size.  Using the page object model with petclinic app as simple as petclinic could be reasonably maintainable.  But if your apps are of any complexity (and let's face it, if you're reading this yours is) SPAM will let you scale to thousands of tests without tearing your hair out.  Well, less hair anyway.
 
-This is an example implementation using SPAM to test the petclinic web app. ( https://github.com/spring-projects/spring-petclinic )  You'll need the petclinic app running locally in order for the tests here to work.  While you can download source and build/run, the easiest way is to install docker and pull their prebuilt image:
+This is an example test framework implementation using cypress, typescript, and  SPAM to test the petclinic web app. ( https://github.com/spring-projects/spring-petclinic )  You'll need the petclinic app running locally in order for the tests to work.  While you can download source and build/run, the easiest way is to install docker and pull their prebuilt image:
  ```
- docker run -p 8080:8080 springcommunity/spring-framework-petclinic
+ docker run -p 8080:8080 springcommunity/spring-framework-petclinic:6.0.3
 ```
 
-(22.12.26 ... well, it would if the app worked correctly from the docker image.  It doesn't seem to at the moment.  Bug has been filed.  In the meantime, clone/download the repo and build/run via maven and it works fine.)
+If you're not familar with cypress, know that all the "then()" bits are intrinsic to how it does things.  The ".then" effectively means "make sure everything is done before moving on"  (that's not exactly true, but it's a useful lie ;-) )  
+
+Even better check out https://docs.cypress.io/guides/core-concepts/introduction-to-cypress.
+
+
+## Caveats, exceptions, excuses, etc
+
+This isn't intended to be a full test implementation.  The intent is to provide examples for as many scenario categories as I can think of.
+
+If there's a particular scenario in the app you'd like to see ("how would you test/categorize/organize testing xyz?") let me know.
 
 
 ## Core SPAM concepts:
@@ -35,11 +44,14 @@ This is an example implementation using SPAM to test the petclinic web app. ( ht
 ### Task
 
 Tasks are a logical user goal.  Create an order.  Change a password.  Check employee info.
-Tasks are made up of actions and queries.
+Tasks are made up of actions and queries.  Simple tests may have a single task, or in some cases one or two actions.
+
+My rule of thumb is if there are more than 2 actions, start considering if what you're doing should be a task.
+
 
 ### Action
 
-Actions change the state of the system under test.  Actions are made up of other actions, interactions, and queries.
+Actions change the state of the system under test.  Actions are made up of other actions, interactions, and queries.  
 
 
 ### Query
@@ -144,6 +156,7 @@ export class MenuHeader {
 That's it. Easy, eh? Static selectors as a further reinforcement that page objects should NOT maintain any sort of state.
 
 Next up...
+
 ### Building out FindOwnerPage
 ```
 export class FindOwnerPage {
@@ -161,13 +174,12 @@ Otherwise, again - very straightforward.  Define what you need now, add more lat
 Rinse, lather, repeat for the rest of the pages we need for this first test.
 
 
-## On to ixns!
+## On to interactions!
 
 Interactions are the only thing that should ever touch the page model.  Need to get a value? Write an interaction.  Need to stick something in a textbox?  Interaction.  
 
-"But why??" I hear you cry.  "It's easy enough...we could even put it in the page model.  One file!"  Yes, yes you could.  However, the single responsibility principle (S in SOLID) is there for a reason.  Small is beautiful.  Limit your blast radius.  One file for model, one file for interaction.  Easier to find.  Easier for limited human brains to grok.
+"But why??" I hear you cry.  "It's easy enough...we could even put it in the page model.  One file!"  Yes, yes you could.  However, the single responsibility principle (S in SOLID) is there for a reason.  Small is beautiful.  Limit your blast radius.  One file for a page model, one file for page interactions.  Logical separation of concerns.  Trust me on this one.
 
-Another thing is the simple fact that when building out these automation frameworks, figuring out where to put things is hard.  Figuring out where to put them that someone else can find them when you're dead and gone (or won the lottery) is even harder.  Solid guidance is a HUGE boon when multiple people work on the same thing.
 
 ### ixn/page/MenuHeaderIxn
 
@@ -184,9 +196,10 @@ Simple and clear.  No doubt as to what it does.
 
 ixn/page/FindOwnerPageIxn is similarly straightforward so let's move on to something a mite more interesting.
 
+
 ### ixn/page/OwnerInfoPageIxn
 
-The owner info page has a couple of interesting points.  One is that it's got two tables we need to figure out how to deal with. Tables can the proverbial witch with a capital B.  Easy to do poorly, hard to do in a robust and maintainable manner.  So let's detour into
+The owner info page has a couple of interesting points.  One is that it's got two tables we need to figure out how to deal with. Tables can the proverbial witch with a capital B.  Easy to do poorly, hard to do in a robust and maintainable manner.  So let's detour into...
 
 
 ## Dealing with tables
@@ -208,9 +221,10 @@ export class TableIxn {
     }
 }
 ```
-The .getTable() returns the parsed json.
+the .getTable() is what calls cypress-get-table, which returns the parsed json.
 
 "Ok", you respond, "I still have to munge and fold, spindle, and mutilate"  Well, yes.  Kinda.  But not really.  This is where the magic of TableQuery comes in.
+
 
 ### TableQuery
 
@@ -218,9 +232,65 @@ TableQuery abstracts out querying all manner of combinations of data in rows, da
 
 Look at test/smoke/TableTests.ts for examples.  This loads the tabletest.html in the same directory and exercises the TableQuery logic against it.  
 
-At this point in our journey we've yet to talk about/implement table column logic.  Looking at
-src/validator/ValidateOwnerInTableResults
-we're still using hardcoded column names for validation.  We'll abstract those out in a bit for more flexibility.  
+At this point in our journey we've yet to talk about or implement abstracting table column logic.  Looking at src/validator/ValidateOwnerInTableResults we're still using hardcoded column names for validation.  We may abstract that out in a bit.  Maybe not.  We'll see how far it goes.
+
+At this point, we've got the model, the interactions, and a query.
+
+Let's look at 
+
+### ValidateOwnerInTableResults
+
+A validator encapsulates the steps to validate success.  
+
+It's very common to validate the same outcome after different tests, so this gets us a test that conveys intent, as well as a nicely encapsulated set of validation steps that can be reused and updated in a single spot.  Let's face it, sticking "ValidateOwnerInTableResults" IS a bit more obvious then the steps.
+
+
+### FindOwnersAction
+
+Action - encapsulated and logical set of steps that changes system state.  Nav to the page, enter the name, click the button.
+
+```
+export class FindOwnersAction extends Action {
+    
+    public execute(lastName: string): Cypress.Chainable {
+        return FindOwnerPageIxn.navTo()
+        .then( () => {
+            FindOwnerPageIxn.enterOwnerLastName(lastName);
+        }).then( () => {
+            FindOwnerPageIxn.clickFindOwnerButton();
+        });
+    }
+}
+```
+
+### OwnerSearchTest
+
+```
+it.only("owner search with more than one result should show owner list result including owner", () => {
+    // given multiple owners with the same last name
+    // if we search for that owner last name  
+    // then the owner expected should be in the search results table
+
+    // known pre-existing owner in data set
+    const owner = new Owner();
+    owner.address="638 Cardinal Ave.";
+    owner.firstName = "Betty";
+    owner.lastName = "Davis";
+    owner.phone = "6085551749";
+
+    new FindOwnersAction().execute(owner.lastName)
+    .then( () => {
+        new ValidateOwnerInTableResults().execute(owner);
+    });
+})
+```
+
+Couple of interesting bits.  Good chance that we'd want to refactor that and pull it up into a "known existing user" fixture of some sort.
+
+This test is short, sweet, and to the point.  Let's look at something (only a bit) more complicated.
+
+### AddOwnerTest
+
 
 
 

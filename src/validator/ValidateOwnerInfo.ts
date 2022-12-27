@@ -1,6 +1,5 @@
 import { OwnerInfoPageIxn } from "../ixn/page/OwnerInfoPageIxn";
 import { Owner } from "../model/Owner";
-import { TableQuery } from "../query/TableQuery";
 import { Validator } from "./Validator";
 
 /**

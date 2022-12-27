@@ -1,4 +1,5 @@
 import { OwnerInfoPageIxn } from "../ixn/page/OwnerInfoPageIxn";
+import { OwnerSearchResultsPageIxn } from "../ixn/page/OwnerSearchResultsPageIxn";
 import { Owner } from "../model/Owner";
 import { TableQuery } from "../query/TableQuery";
 import { Validator } from "./Validator";
@@ -13,20 +14,25 @@ export class ValidateOwnerInTableResults extends Validator{
         // could be tightened up with a generic "table/colname/value" list
         // passed into a validation loop
 
-        return OwnerInfoPageIxn.getOwnerInfoTable()
+        return OwnerSearchResultsPageIxn.getOwnerSearchResultsTable()
         .then (oit => {
+            debugger
             TableQuery.hasColumnWithRowValue(oit,"Name",owner.fullName())
-                .then(  nameFound => {
-                     expect(nameFound, `owner name ${owner.fullName()} should be present in results table`).to.be.true;
-                });
+            .then( name => {
+                expect(name, `owner name ${owner.fullName()} should be present in results table`).to.be.true;
+            });
             TableQuery.hasColumnWithRowValue(oit,"Address",owner.address)
-                .then(  nameFound => {
-                     expect(nameFound, `owner address ${owner.address} should be present in results table`).to.be.true;
-                });
-            TableQuery.hasColumnWithRowValue(oit,"Phone",owner.phone)
-                .then(  nameFound => {
-                     expect(nameFound, `owner phone ${owner.phone} should be present in results table`).to.be.true;
-                });
+            .then( address => {
+                expect(address, `owner address ${owner.address} should be present in results table`).to.be.true;
+            });
+            TableQuery.hasColumnWithRowValue(oit,"City",owner.city)
+            .then( city => {
+                expect(city, `owner city ${owner.city} should be present in results table`).to.be.true;
+            });
+            TableQuery.hasColumnWithRowValue(oit,"Telephone",owner.phone)
+            .then( phone => {
+                expect(phone, `owner telephone ${owner.phone} should be present in results table`).to.be.true;
+            });
         });
     }
 }

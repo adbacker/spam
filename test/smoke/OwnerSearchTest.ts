@@ -30,6 +30,7 @@ describe("Owner Search", () => {
         owner.address="638 Cardinal Ave.";
         owner.firstName = "Betty";
         owner.lastName = "Davis";
+        owner.city = "Sun Prairie";
         owner.phone = "6085551749";
 
         new FindOwnersAction().execute(owner.lastName)
