@@ -54,7 +54,6 @@ export class TableQuery {
      * @returns integer
      */
     public static getRowNumberWithColumnValue(tableContents: any, columnToSearch: string, valueToMatch: string): Cypress.Chainable<number> {
-        debugger
         if (TableQuery.hasColumn(tableContents,columnToSearch)) {
             const foundIndex:number = tableContents.findIndex(o => (o[columnToSearch]).trim() === valueToMatch);
             return cy.wrap(foundIndex);
@@ -63,6 +62,19 @@ export class TableQuery {
         }
     }
 
+    /**
+     * @description returns value for column in row#
+     * @param tableContents
+     * @param columnToSearch 
+     * @param rowNum 
+     * @returns 
+     */
+    public static getColumnValueAtRow(tableContents: any, columnToSearch: string, rowNum: number): Cypress.Chainable<string> {
+        const row = tableContents[rowNum];
+        const returnVal: string = row[columnToSearch];
+        debugger
+        return cy.wrap(returnVal);
+    }
 
     /**
      * Find the row containing the column,value pair passed in, then return the value for the column requested

@@ -19,4 +19,7 @@ export class OwnerInfoPageIxn {
         return TableIxn.getParsedTable(OwnerInfoPage.petVisitTable);
     }
 
+    public static getOwnerName(): Cypress.Chainable {
+        return cy.get(OwnerInfoPage.ownerName).invoke('text');
+    }
 }

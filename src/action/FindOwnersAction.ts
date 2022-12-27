@@ -1,5 +1,4 @@
 import { FindOwnerPageIxn } from "../ixn/page/FindOwnerPageIxn";
-import { MenuHeaderIxn } from "../ixn/page/MenuHeaderIxn";
 import { Action } from "./Action";
 
 export class FindOwnersAction extends Action {

@@ -4,7 +4,7 @@ import { MenuHeaderIxn } from "./MenuHeaderIxn";
 export class FindOwnerPageIxn {
 
     public static navTo(): Cypress.Chainable {
-        return MenuHeaderIxn.clickFindOwners()
+        return MenuHeaderIxn.clickFindOwners();
     }
     
     public static enterOwnerLastName(ownerLastName: string): Cypress.Chainable {
@@ -14,4 +14,9 @@ export class FindOwnerPageIxn {
     public static clickFindOwnerButton(): Cypress.Chainable {
         return cy.get(FindOwnerPage.findOwnerButton).click();
     }
+
+    public static clickAddOwnerButton(): Cypress.Chainable {
+        return cy.get(FindOwnerPage.addOwnerButton).click();
+    }
+
 }
