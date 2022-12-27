@@ -2,7 +2,9 @@ Hello!  And welcome to...
 
 # SPAM
 ## State Page Action Model 
-## (a UI/api test framework pattern implemented with cypress and typescript)
+
+## a test framework pattern 
+## implemented with cypress and typescript
 
 This is putting pen to paper (fingers to keyboard) to capture the methodology I've gravitated to in replacement of the page object model.  This project is still in progress  (until this disclaimer is removed) so if it seems incomplete, that's why.  If it looks incomplete and hasn't been updated for months or years I probably won the lottery or died in a horrible industrial accident involving a crate of toothpaste, several unreasonably large tomatoes, and a very disgruntled giraffe.
 
