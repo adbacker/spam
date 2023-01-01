@@ -11,24 +11,28 @@ This is putting pen to paper (fingers to keyboard) to capture the methodology I'
 SPAM came out of a number of frustrations:
 
 * the page object model for UI test framework has significant maintaiability issues
-https://johnfergusonsmart.com/beyond-page-objects-liberate-chains-ui-think/
-https://cucumber.io/blog/bdd/understanding-screenplay-(part-1)/
-https://www.slideshare.net/RiverGlide/refactoring-page-objects-the-screenplay-pattern
-* Multiple people contributing to an automation framework put stuff in different places.  Sometimes the same person will put the same kinda stuff in different places depending on the day and whether they remember where they put it before.
-* Figuring out whether something is already built can be all but impossible given the above.
+> * https://johnfergusonsmart.com/beyond-page-objects-liberate-chains-ui-think/
+> * https://cucumber.io/blog/bdd/understanding-screenplay-(part-1)/
+> * https://www.slideshare.net/RiverGlide/refactoring-page-objects-the-screenplay-pattern
+* Multiple people contributing to an automation framework put stuff in different places.  Sometimes the same person 
+  will put the same kinda stuff in different places depending on the day and whether they remember where they put it last week.
+* Given the above, figuring out whether something is already built can be all but impossible sometimes.
 
 SPAM gives concrete guidance on where to put what, how to get at it, and how to build tests with it.  Framework coding standards.  Of course, YMMV but it'll give you some place to start.
 
- If you're failiar with the screenplay pattern, you'll see some similar verbage.  That's intentional.  While SPAM isn't the screenplay pattern, it is organization and abstraction building blocks that can be used with the screenplay pattern. 
+ If you're familiar with the screenplay pattern, you'll see some similar verbiage.  That's intentional.  While SPAM 
+ isn't the screenplay pattern, it is organization and abstraction building blocks that can be used with the screenplay pattern. 
 
 SPAM came out of frustration with maintaining POM based frameworks as they passed a certain size.  Using the page object model with petclinic app as simple as petclinic could be reasonably maintainable.  But if your apps are of any complexity (and let's face it, if you're reading this yours is) SPAM will let you scale to thousands of tests without tearing your hair out.  Well, less hair anyway.
 
-This is an example test framework implementation using cypress, typescript, and  SPAM to test the petclinic web app. ( https://github.com/spring-projects/spring-petclinic )  You'll need the petclinic app running locally in order for the tests to work.  While you can download source and build/run, the easiest way is to install docker and pull their prebuilt image:
+This is an example test framework implementation using cypress, typescript, and  SPAM to test the [petclinic web app]( https://github.com/spring-projects/spring-petclinic ). You'll need the petclinic app running locally in order for the tests to work.  
+
+While you can download source and build/run, the easiest way is to install docker and pull their prebuilt image:
  ```
  docker run -p 8080:8080 springcommunity/spring-framework-petclinic:6.0.3
 ```
 
-If you're not familar with cypress, know that all the "then()" bits are intrinsic to how it does things.  The ".then" effectively means "make sure everything is done before moving on"  (that's not exactly true, but it's a useful lie ;-) )  
+If you're not familiar with cypress, know that all the "then()" bits are intrinsic to how it does things.  The ".then" effectively means "make sure everything is done before moving on"  (that's not exactly true, but it's a useful lie ;-) )  
 
 Even better check out https://docs.cypress.io/guides/core-concepts/introduction-to-cypress.
 
@@ -112,17 +116,21 @@ it("admin should be able to create a new user", () =>
 
 What does our first test touch?  Looking at the pages we nav through, it appears we'll need to build out:
 
-model/page/MenuHeader
-model/page/FindOwnerPage
-model/page/OwnerInfoPage
+models
+* model/page/MenuHeader
+* model/page/FindOwnerPage
+* model/page/OwnerInfoPage
 
-ixn/page/MenuHeaderIxn
-ixn/page/FindOwnePageIxn
-ixn/page/OwnerInfoPageIxn
+interactions
+* ixn/page/MenuHeaderIxn
+* ixn/page/FindOwnePageIxn
+* ixn/page/OwnerInfoPageIxn
 
-action/CreateOwnerAction
+actions
+* action/CreateOwnerAction
 
-validator/ValidateOwnerCreated
+validators
+* validator/ValidateOwnerCreated
 
 
 ### First up ... menu header page!
