@@ -18,20 +18,24 @@ SPAM came out of a number of frustrations:
   will put the same kinda stuff in different places depending on the day and whether they remember where they put it last week.
 * Given the above, figuring out whether something is already built can be all but impossible sometimes.
 
-SPAM gives concrete guidance on where to put what, how to get at it, and how to build tests with it.  Framework coding standards.  Of course, YMMV but it'll give you some place to start.
+SPAM gives concrete guidance on where to put what, how to get at it, and how to build tests with it.  Framework 
+coding standards.  Of course, YMMV but it can at least give you some place to start.
 
  If you're familiar with the screenplay pattern, you'll see some similar verbiage.  That's intentional.  While SPAM 
  isn't the screenplay pattern, it is organization and abstraction building blocks that can be used with the screenplay pattern. 
 
-SPAM came out of frustration with maintaining POM based frameworks as they passed a certain size.  Using the page object model with petclinic app as simple as petclinic could be reasonably maintainable.  But if your apps are of any complexity (and let's face it, if you're reading this yours is) SPAM will let you scale to thousands of tests without tearing your hair out.  Well, less hair anyway.
+SPAM came out of frustration with maintaining POM based frameworks as they passed a certain size.  Using the page 
+object model with a super simple app can be reasonably maintainable.  But if your apps are of any complexity SPAM will let you scale to thousands of tests without tearing your hair out.  Well, less hair anyway.
 
 This is an example test framework implementation using cypress, typescript, and  SPAM to test the [petclinic web app]( https://github.com/spring-projects/spring-petclinic ). You'll need the petclinic app running locally in order for the tests to work.  
 
-While you can download source and build/run, the easiest way is to install docker and pull their prebuilt image:
+The easiest way to get petclinic running is to install docker and pull their prebuilt image:
  ```
  docker run -p 8080:8080 springcommunity/spring-framework-petclinic:6.0.3
 ```
 
+
+## What's with all the weird "then" stuff??
 If you're not familiar with cypress, know that all the "then()" bits are intrinsic to how it does things.  The ".then" effectively means "make sure everything is done before moving on"  (that's not exactly true, but it's a useful lie ;-) )  
 
 Even better check out https://docs.cypress.io/guides/core-concepts/introduction-to-cypress.
