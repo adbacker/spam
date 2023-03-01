@@ -161,7 +161,7 @@ In order to make sure we're seeing what we expect to see, we'll make sure the br
 
 All my page models start in /src/model/page.  From there, it's app dependent as to how organization goes.  In this simple case, we'll stick it at root.  
 
-Take a lookt at /src/model/page/MenuHeader.ts
+Take a look at /src/model/page/MenuHeader.ts:
 
 ```
 export class MenuHeader {
@@ -169,7 +169,7 @@ export class MenuHeader {
 }
 ```
 
-That's it. Easy, eh? Static selectors as a further reinforcement that page objects should NOT maintain any sort of state.
+That's it. Easy, eh? The selectors are static as further reinforcement that page objects should NOT maintain any sort of state.
 
 Next up...
 
