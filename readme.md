@@ -147,9 +147,12 @@ First instinct may be to put in an if statement.  "Hey, if the browser window is
 
 > ### tl;dr -- tl;dr -- tl;dr -- tl;dr
 
-> You might think "but what if I want to test varitions?  Picking randomly from a list means I can accomplish two things at once - test different values AND the primary functionality!"  This can be a really bad idea.  Needing/wanting variation means you don't know that all the inputs === expected outputs.  If you want to test variations, write a test explicitly for testing variation ... so that when the test fails you KNOW that you were testing variations and you know where to start looking if it fails.
+> You might think "but what if I want to test varitions?  Picking randomly from a list means I can accomplish two things at once - test different values AND the primary functionality!"  
+> 
+> This can be a really bad idea.  Using variation in this manner means you don't know that all the inputs === expected outputs.  
+> *If you want to test variations, write a test explicitly for testing variation ... so that when the test fails you KNOW that you were testing variations and you know where to start looking if it fails!!*
 
-> I've been in situations where flaky tests were finally, after weeks, traced down to one opton in a large "random" set of inputs that triggered the fail.  Since it'd run once and fail (in a manner that didn't directly point to the input) and then run again 10-20x just fine it was assumed to be flakiness im the system under test.  <insert facepalm>
+> I've been in situations where flaky tests were finally, after weeks, traced down to one opton in a large "random" set of inputs that triggered the fail.  Since it'd run once and fail (in a manner that didn't directly point to the input) and then run again 10-20x just fine it was assumed to be flakiness in the system under test.  <insert facepalm>
 
 > Back to your regularly scheduled test breakdown.
 
