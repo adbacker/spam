@@ -98,9 +98,9 @@ In the words of the immortal MC Hammer, we can now break it down.
 
 ### What's the user trying to do?  We'll use BDD's Given-When-Then 
 
-*given an admin is logged in*
-*when admin creates a new owner*
-*then owner information page is displayed*
+- *given an admin is logged in*
+- *when admin creates a new owner*
+- *then owner information page is displayed*
 
 What would we like the test itself to look like?  Do we want to have direct clicks on elements in the test itself?  We do not.  (where we == I.  This is our tutorial.  We can use the royal we if we so desire)  I try to make the tests expressive enough to be readily understood by anyone.  Tests should show intent and goals, not (necessarily) implementation steps.
 
