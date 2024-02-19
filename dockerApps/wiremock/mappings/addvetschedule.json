@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/schedule"
+  },
+
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody" : {
+        "status": "success",
+        "appointmentId": "666"
+    }
+  }
+}

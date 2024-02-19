@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/schedule/101/20240122"
+  },
+
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName" : "vetschedule.json"
+  }
+}

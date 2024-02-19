@@ -54,10 +54,8 @@ export class TableQuery {
      * @returns integer
      */
     public static getRowNumberWithColumnValue(tableContents: any, columnToSearch: string, valueToMatch: string): Cypress.Chainable<number> {
-        debugger
         if (TableQuery.hasColumn(tableContents,columnToSearch)) {
             const foundIndex:number = tableContents.findIndex(o => (o[columnToSearch]).trim() === valueToMatch);
-            debugger
             return cy.wrap(foundIndex);
         } else {
             return cy.wrap(-1);

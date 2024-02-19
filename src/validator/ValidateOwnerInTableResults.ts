@@ -16,7 +16,6 @@ export class ValidateOwnerInTableResults extends Validator{
 
         return OwnerSearchResultsPageIxn.getOwnerSearchResultsTable()
         .then (oit => {
-            debugger
             TableQuery.hasColumnWithRowValue(oit,"Name",owner.fullName())
             .then( name => {
                 expect(name, `owner name ${owner.fullName()} should be present in results table`).to.be.true;

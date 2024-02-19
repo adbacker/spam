@@ -1,0 +1,24 @@
+[
+  {
+    "vetId": "101",
+    "year": "2024",
+    "month": "01",
+    "day": "22",
+    "start": "13:00",
+    "end": "13:30",
+    "summary": "initial intake for poopsie",
+    "procedureCode": "30110",
+    "customerId": "101"
+  },
+  {
+    "vetId": "101",
+    "year": "2024",
+    "month": "01",
+    "day": "22",
+    "start": "14:00",
+    "end": "14:45",
+    "summary": "yearly checkup for Spot",
+    "procedureCode": "40111",
+    "customerId": "102"
+  }
+]

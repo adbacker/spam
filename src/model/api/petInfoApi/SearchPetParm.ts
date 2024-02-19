@@ -1,0 +1,1 @@
+type SearchPetParm = "petName" | "animalType" | "color"
