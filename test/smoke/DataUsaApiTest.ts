@@ -21,19 +21,19 @@ describe("DataUSA api test", () => {
 
     it("test DataUsaApi endpoint", () => {
         const callMgr: DataUsaCallMgr = new DataUsaCallMgr();
-        callMgr.addParm("drilldowns","Nation");
-        callMgr.addParm("measures","Population");
+        // give ourselves reminders of what the DataUsaParms actually are...
+        callMgr.addParm(<DataUsaParm>"drilldowns","Nation");
+        callMgr.addParm(<DataUsaParm>"measures","Population");
 
-        // callMgr.submit<DataUsaApiCall>()
         callMgr.submit<DataUsaApiCall>()
-            .then( apiCall => {
-                const responseData = apiCall.response.data;
-                const responseSource = apiCall.response.source;
+        .then( apiCall => {
+            const responseData = apiCall.response.data;
+            const responseSource = apiCall.response.source;
 
-                // pull out just the 2013 data
-                const dataFor2013: NationPopulation = responseData.filter( (nationData) => nationData.Year === "2013")[0];
-                expect(dataFor2013.Population === 311536594, "2013 population data retrieved should be as expected").to.be.true;
-                expect(responseSource[0].annotations.dataset_name === "ACS 5-year Estimate", "dataset_name in source data should be as expected").to.be.true;
-            })
+            // pull out just the 2013 data
+            const dataFor2013: NationPopulation = responseData.filter( (nationData) => nationData.Year === "2013")[0];
+            expect(dataFor2013.Population === 311536594, "2013 population data retrieved should be as expected").to.be.true;
+            expect(responseSource[0].annotations.dataset_name === "ACS 5-year Estimate", "dataset_name in source data should be as expected").to.be.true;
+        })
     })
 })
