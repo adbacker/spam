@@ -6,7 +6,7 @@ export class GetScheduleEndpoint extends HttpApiEndpoint {
     httpMethod = "GET";
     basePath = "/schedule";
 
-    getPath(): string {
+    getUrl(): string {
         const appointmentDate: string = this.parms.get("date");
         const vetId: string = this.parms.get("vetId");
         return `${this.basePath}/${vetId}/${appointmentDate}`;

@@ -1,0 +1,1 @@
+type DataUsaParm = "drilldowns" | "measures"

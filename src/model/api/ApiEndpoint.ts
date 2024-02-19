@@ -3,5 +3,5 @@ export interface ApiEndpoint {
 
     getHeaders(): any;
     getData(): any;
-    getPath(): string;
+    getUrl(): string;
 }

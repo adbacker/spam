@@ -14,7 +14,12 @@ export class HttpApiClient extends ApiClient {
         const apiCallObj = new HttpCallCfg();
         apiCallObj.failOnStatusCode = false;
         apiCallObj.method = this.endpoint.httpMethod;
-        apiCallObj.url = `${this.rc.envBaseUrl()}:${this.endpoint.port}${this.endpoint.getPath()}`;
+
+        const basePath = this.endpoint.basePath;
+        const port = this.endpoint.port;
+        const path = this.endpoint.getUrl();
+
+        apiCallObj.url = `${this.endpoint.getUrl()}`;
 
         if(this.endpoint.getHeaders()) {
             apiCallObj.headers = this.endpoint.getHeaders()

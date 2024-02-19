@@ -15,12 +15,12 @@ export abstract class HttpApiEndpoint implements ApiEndpoint {
         return undefined;
     }
 
-    getPath(): string {
+    getUrl(): string {
         return this.basePath;
     }
 
     urlParmMap(): string {
-        let pathToReturn = `${this.basePath}?`;
+        let pathToReturn = "";
         this.parms.forEach((value,key) => {
             pathToReturn = `${pathToReturn}${key}=${value}&`;
         })
