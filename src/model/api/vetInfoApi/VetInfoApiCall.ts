@@ -1,7 +1,7 @@
 import { ApiCall } from "../ApiCall";
-import { VetApiResponse } from "./VetApiResponse";
+import { VetInfoApiResponse } from "./VetInfoApiResponse";
 
 export class VetInfoApiCall implements ApiCall {
     request: any;
-    response: VetApiResponse;
+    response: VetInfoApiResponse;
 }

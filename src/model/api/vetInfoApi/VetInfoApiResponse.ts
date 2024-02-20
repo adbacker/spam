@@ -1,6 +1,6 @@
 import { Vet } from "../../vet/Vet";
 
 // list 'o vet objects
-export class VetApiResponse {
+export class VetInfoApiResponse {
     vetList: Vet[] = []
 }
