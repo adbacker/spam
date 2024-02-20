@@ -1,1 +1,0 @@
-type UpdatePetParm = "petName" | "animalType" | "color" | "name" | "gender" | "fixed"

@@ -1,4 +1,4 @@
-import { Specialty } from "../specialty/Specialty";
+import {Specialty} from "../specialty/Specialty";
 
 export class Vet {
     id: number;

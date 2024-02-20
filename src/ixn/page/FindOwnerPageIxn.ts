@@ -1,5 +1,5 @@
-import { FindOwnerPage } from "../../model/page/FindOwnerPage";
-import { MenuHeaderIxn } from "./MenuHeaderIxn";
+import {FindOwnerPage} from "../../model/page/FindOwnerPage";
+import {MenuHeaderIxn} from "./MenuHeaderIxn";
 
 export class FindOwnerPageIxn {
 

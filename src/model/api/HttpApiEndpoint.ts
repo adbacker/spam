@@ -5,7 +5,6 @@ export abstract class HttpApiEndpoint implements ApiEndpoint {
     abstract parms: Map<string, any>;
     abstract httpMethod: string;
     abstract basePath: string;
-    port: string = "8080";
 
     getHeaders(): any {
         return undefined;

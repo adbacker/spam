@@ -1,4 +1,4 @@
-import { Vet } from "../../vet/Vet";
+import {Vet} from "../../vet/Vet";
 
 // list 'o vet objects
 export class VetInfoApiResponse {

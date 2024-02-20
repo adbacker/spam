@@ -1,5 +1,5 @@
-import { AnimalClass } from "./AnimalClass";
-import { PetType } from "./PetType";
+import {AnimalClass} from "./AnimalClass";
+import {PetType} from "./PetType";
 
 export class Cat implements PetType {
     typeName = "cat";

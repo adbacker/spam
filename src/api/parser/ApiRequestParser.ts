@@ -1,4 +1,4 @@
-import { ApiRequestParm } from "../../model/api/depricated/ApiRequestParm";
+import {ApiRequestParm} from "../../model/api/depricated/ApiRequestParm";
 
 /**
  * @description utility methods for converting an array of

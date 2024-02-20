@@ -1,13 +1,7 @@
-import { HttpApiCallMgr } from "../../src/api/HttpApiCallMgr";
-import { VetInfoJsonEndpoint } from "../../src/model/api/vetInfoApi/VetInfoJsonEndpoint";
-import { VetInfoApiCall } from "../../src/model/api/vetInfoApi/VetInfoApiCall";
-import { GetScheduleEndpoint } from "../../src/model/api/scheduleApi/GetScheduleEndpoint";
-import { GetScheduleApiCall } from "../../src/model/api/scheduleApi/GetScheduleApiCall";
-import {GetScheduleCallMgr} from "../../src/api/GetScheduleCallMgr";
 import {DataUsaCallMgr} from "../../src/api/DataUsaCallMgr";
 import {DataUsaApiCall} from "../../src/model/api/datausa/DataUsaApiCall";
 import {NationPopulation} from "../../src/model/datausa/NationPopulation";
-
+import {DataUsaEndpoint} from "../../src/model/api/datausa/DataUsaEndpoint";
 
 describe("DataUSA api test", () => {
 
@@ -20,7 +14,7 @@ describe("DataUSA api test", () => {
     })
 
     it("test DataUsaApi endpoint", () => {
-        const callMgr: DataUsaCallMgr = new DataUsaCallMgr();
+        const callMgr: DataUsaCallMgr = new DataUsaCallMgr(new DataUsaEndpoint());
         // give ourselves reminders of what the DataUsaParms actually are...
         callMgr.addParm(<DataUsaParm>"drilldowns","Nation");
         callMgr.addParm(<DataUsaParm>"measures","Population");

@@ -1,6 +1,6 @@
-import { ApiCall } from "../model/api/ApiCall";
-import { ApiEndpoint } from "../model/api/ApiEndpoint";
-import { ApiClient } from "./ApiClient";
+import {ApiCall} from "../model/api/ApiCall";
+import {ApiEndpoint} from "../model/api/ApiEndpoint";
+import {ApiClient} from "./ApiClient";
 
 /**
  * Single point of contact for tests

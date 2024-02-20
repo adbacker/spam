@@ -1,5 +1,5 @@
-import { OwnerInfoPage } from "../../model/page/OwnerInfoPage";
-import { TableIxn } from "../table/TableIxn";
+import {OwnerInfoPage} from "../../model/page/OwnerInfoPage";
+import {TableIxn} from "../table/TableIxn";
 
 export class OwnerInfoPageIxn {
 

@@ -1,6 +1,6 @@
-import { FindOwnersAction } from "../../src/action/FindOwnersAction";
-import { Owner } from "../../src/model/Owner";
-import { ValidateOwnerInTableResults } from "../../src/validator/ValidateOwnerInTableResults";
+import {FindOwnersAction} from "../../src/action/FindOwnersAction";
+import {Owner} from "../../src/model/Owner";
+import {ValidateOwnerInTableResults} from "../../src/validator/ValidateOwnerInTableResults";
 
 describe("Owner Search", () => {
 

@@ -1,5 +1,5 @@
-import { Visit } from "../visit/Visit";
-import { PetType } from "./PetType";
+import {Visit} from "../visit/Visit";
+import {PetType} from "./PetType";
 
 export class Pet {
     name: string;

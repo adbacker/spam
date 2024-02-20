@@ -1,17 +1,16 @@
-import { ApiCall } from "../model/api/ApiCall";
-import { ApiEndpoint } from "../model/api/ApiEndpoint";
-import { ApiCallMgr } from "./ApiCallMgr";
-import { ApiClient } from "./ApiClient";
-import { HttpApiClient } from "./HttpApiClient";
+import {ApiCall} from "../model/api/ApiCall";
+import {ApiCallMgr} from "./ApiCallMgr";
+import {HttpApiClient} from "./HttpApiClient";
 import {HttpApiEndpoint} from "../model/api/HttpApiEndpoint";
 
 export abstract class HttpApiCallMgr extends ApiCallMgr {
-    abstract endpoint: HttpApiEndpoint;
+    endpoint: HttpApiEndpoint;
     client: HttpApiClient;
     abstract call: ApiCall;
 
-    constructor() {
+    constructor(endpoint: HttpApiEndpoint) {
         super();
+        this.endpoint = endpoint;
         return this;
     }
     submit<T>(): Cypress.Chainable<T>

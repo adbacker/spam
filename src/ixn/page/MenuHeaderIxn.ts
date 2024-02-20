@@ -1,4 +1,4 @@
-import { MenuHeader } from "../../model/page/MenuHeader";
+import {MenuHeader} from "../../model/page/MenuHeader";
 
 export class MenuHeaderIxn {
 

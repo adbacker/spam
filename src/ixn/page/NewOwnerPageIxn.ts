@@ -1,4 +1,4 @@
-import { NewOwnerPage } from "../../model/page/NewOwnerPage";
+import {NewOwnerPage} from "../../model/page/NewOwnerPage";
 
 export class NewOwnerPageIxn {
     

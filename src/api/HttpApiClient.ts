@@ -1,6 +1,5 @@
-import { ApiClient } from "./ApiClient";
-import { HttpCallCfg } from "../model/api/HttpCallCfg";
-import {ApiEndpoint} from "../model/api/ApiEndpoint";
+import {ApiClient} from "./ApiClient";
+import {HttpCallCfg} from "../model/api/HttpCallCfg";
 import {HttpApiEndpoint} from "../model/api/HttpApiEndpoint";
 
 /**
@@ -16,7 +15,6 @@ export class HttpApiClient extends ApiClient {
         apiCallObj.method = this.endpoint.httpMethod;
 
         const basePath = this.endpoint.basePath;
-        const port = this.endpoint.port;
         const path = this.endpoint.getUrl();
 
         apiCallObj.url = `${this.endpoint.getUrl()}`;

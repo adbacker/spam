@@ -1,6 +1,6 @@
-import { OwnerInfoPageIxn } from "../ixn/page/OwnerInfoPageIxn";
-import { Owner } from "../model/Owner";
-import { Validator } from "./Validator";
+import {OwnerInfoPageIxn} from "../ixn/page/OwnerInfoPageIxn";
+import {Owner} from "../model/Owner";
+import {Validator} from "./Validator";
 
 /**
  * @description owner info page has correct data

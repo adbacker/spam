@@ -1,5 +1,5 @@
-import { Specialty } from "./Specialty";
-import { SpecialtyType } from "./SpecialtyType";
+import {Specialty} from "./Specialty";
+import {SpecialtyType} from "./SpecialtyType";
 
 export class Dental extends Specialty {
     name = "dental";

@@ -1,8 +1,7 @@
-import { OwnerInfoPageIxn } from "../ixn/page/OwnerInfoPageIxn";
-import { OwnerSearchResultsPageIxn } from "../ixn/page/OwnerSearchResultsPageIxn";
-import { Owner } from "../model/Owner";
-import { TableQuery } from "../query/TableQuery";
-import { Validator } from "./Validator";
+import {OwnerSearchResultsPageIxn} from "../ixn/page/OwnerSearchResultsPageIxn";
+import {Owner} from "../model/Owner";
+import {TableQuery} from "../query/TableQuery";
+import {Validator} from "./Validator";
 
 /**
  * @description owner info exists in table results

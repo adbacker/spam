@@ -1,4 +1,4 @@
-import { AnimalClass } from "./AnimalClass";
+import {AnimalClass} from "./AnimalClass";
 
 export abstract class PetType {
     typeName: string;

@@ -1,4 +1,4 @@
-import { TableQuery } from "../../src/query/TableQuery";
+import {TableQuery} from "../../src/query/TableQuery";
 
 
 describe("Table code unit tests", () => {

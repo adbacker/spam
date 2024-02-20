@@ -1,7 +1,7 @@
-import { CreateOwnerAction } from "../../src/action/CreateOwnerAction";
-import { Timestamp } from "../../src/helpers/Timestamp";
-import { Owner } from "../../src/model/Owner";
-import { ValidateOwnerInfo } from "../../src/validator/ValidateOwnerInfo";
+import {CreateOwnerAction} from "../../src/action/CreateOwnerAction";
+import {Timestamp} from "../../src/helpers/Timestamp";
+import {Owner} from "../../src/model/Owner";
+import {ValidateOwnerInfo} from "../../src/validator/ValidateOwnerInfo";
 
 describe("Create owner tests", () => {
 

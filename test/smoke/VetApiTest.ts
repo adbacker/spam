@@ -1,4 +1,4 @@
-import { VetInfoApiCall } from "../../src/model/api/vetInfoApi/VetInfoApiCall";
+import {VetInfoApiCall} from "../../src/model/api/vetInfoApi/VetInfoApiCall";
 import {VetListApiMgr} from "../../src/api/VetListApiMgr";
 
 describe("Vets api test", () => {

@@ -1,4 +1,4 @@
-import { SpecialtyType as SpecialtyType } from "./SpecialtyType";
+import {SpecialtyType as SpecialtyType} from "./SpecialtyType";
 
 export abstract class Specialty {
     id: number;
