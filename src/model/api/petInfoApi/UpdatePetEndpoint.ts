@@ -1,4 +1,4 @@
-import {HttpApiEndpoint} from "../../../api/HttpApiEndpoint";
+import {HttpApiEndpoint} from "../HttpApiEndpoint";
 
 /**
  * example POST http endpoint with params in body

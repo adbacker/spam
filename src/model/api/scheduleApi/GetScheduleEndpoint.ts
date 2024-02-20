@@ -1,5 +1,5 @@
 import { GetScheduleParm } from "./GetScheduleParm";
-import {HttpApiEndpoint} from "../../../api/HttpApiEndpoint";
+import {HttpApiEndpoint} from "../HttpApiEndpoint";
 
 export class GetScheduleEndpoint extends HttpApiEndpoint {
     parms = new Map<GetScheduleParm, string>();

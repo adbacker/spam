@@ -1,4 +1,4 @@
-import {HttpApiEndpoint} from "../../../api/HttpApiEndpoint";
+import {HttpApiEndpoint} from "../HttpApiEndpoint";
 
 export class VetInfoJsonEndpoint extends HttpApiEndpoint {
     parms: Map<string, any>;

@@ -1,7 +1,7 @@
 import { ApiClient } from "./ApiClient";
 import { HttpCallCfg } from "../model/api/HttpCallCfg";
 import {ApiEndpoint} from "../model/api/ApiEndpoint";
-import {HttpApiEndpoint} from "./HttpApiEndpoint";
+import {HttpApiEndpoint} from "../model/api/HttpApiEndpoint";
 
 /**
  * Basic HttpApiClient implementation

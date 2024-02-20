@@ -1,4 +1,4 @@
-import {ApiEndpoint} from "../model/api/ApiEndpoint";
+import {ApiEndpoint} from "./ApiEndpoint";
 
 export abstract class HttpApiEndpoint implements ApiEndpoint {
 

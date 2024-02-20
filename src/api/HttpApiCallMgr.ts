@@ -3,7 +3,7 @@ import { ApiEndpoint } from "../model/api/ApiEndpoint";
 import { ApiCallMgr } from "./ApiCallMgr";
 import { ApiClient } from "./ApiClient";
 import { HttpApiClient } from "./HttpApiClient";
-import {HttpApiEndpoint} from "./HttpApiEndpoint";
+import {HttpApiEndpoint} from "../model/api/HttpApiEndpoint";
 
 export abstract class HttpApiCallMgr extends ApiCallMgr {
     abstract endpoint: HttpApiEndpoint;

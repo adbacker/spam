@@ -1,5 +1,5 @@
 import { Appointment } from "../../visit/Appointment";
-import {HttpApiEndpoint} from "../../../api/HttpApiEndpoint";
+import {HttpApiEndpoint} from "../HttpApiEndpoint";
 
 export class AddScheduleEndpoint extends HttpApiEndpoint {
     parms = new Map<AddScheduleParm,any>();

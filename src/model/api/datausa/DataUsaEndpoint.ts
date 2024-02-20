@@ -1,4 +1,4 @@
-import {HttpApiEndpoint} from "../../../api/HttpApiEndpoint";
+import {HttpApiEndpoint} from "../HttpApiEndpoint";
 import {RunCfg} from "../../../cfgMgt/RunCfg";
 
 /**
