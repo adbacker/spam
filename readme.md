@@ -36,7 +36,7 @@ The easiest way to get petclinic running is to install docker and pull their pre
 
 
 ## What's with all the weird "then" stuff??
-If you're not familiar with cypress, know that all the "then()" bits are intrinsic to how it does things.  The ".then" effectively means "make sure everything is done before moving on"  (that's not exactly true, but it's a useful lie ;-) )  
+If you're not familiar with cypress, know that all the "then()" bits are intrinsic to how it does things.  The ".then" means "make sure everything is done before moving on"  (that's not exactly accurate, but it's a useful lie ;-) )  
 
 Even better check out https://docs.cypress.io/guides/core-concepts/introduction-to-cypress.
 
@@ -306,6 +306,223 @@ Couple of interesting bits.  Good chance that we'd want to refactor that and pul
 This test is short, sweet, and to the point.  Let's look at something (only a bit) more complicated.
 
 ### AddOwnerTest
+
+(we'll return to this bit after filling out the API testing examples)
+
+(blame the giraffes)
+
+
+
+## Architecting API tests
+
+Testing APIs can be tricky. It's easy to do quick, and easy to do poorly.
+
+Most of the test examples I see are ridiculously simple.  They show how to do calls to an api with few (if any) parameters.  Everything is hard-coded.  And validation is equally simplistic.
+
+You could say (and I am) that these tutorials aren't showing you how to build api test automation, they're simply showing you how to call an api.  The most difficult bit - organizing and architecting so things don't become spaghetti in short order - is left as an exercise to the student.
+
+Note that the usual disclaimers apply.  (your milage may vary, I'm human and make mistakes, past performance is no guarantee of future returns.)
+
+This first example is a GET request with parameters appended to the url.  Later examples will cover apis using form data (ie, a POST with the key/value pairs in the body) as well as when the url path itself contains parameters.
+
+
+### Testing a simple GET call with URL parameters
+
+Here we'll walk through adding infrastructure to our test project to call the publicly available datausa.io api.
+
+Here's a call example:
+
+```https://datausa.io/api/data?drilldowns=Nation&measures=Population```
+
+In this first case, there are two parameters we'll be architecting for: drilldowns and measures.
+
+These are the bits of SPAM architecture the example depends on.  If you're looking at the sample project, you've already got them.
+
+* src/api/cfgMgt/RunCfg.ts
+* src/api/ApiCallMgr.ts
+* src/api/ApiClient.ts
+* src/api/HttpApiCallMgr.ts
+* src/api/HttpApiClient.ts
+* src/model/api/ApiCall.ts
+* src/model/api/ApiEndpoint.ts
+* src/model/api/HttpCallCfg.ts
+* src/api/HttpApiEndpoint.ts
+
+Here we go!
+
+### Create the model files
+
+#### src/model/api/datausa/DataUsaParm.ts:
+```
+type DataUsaParm = "drilldowns" | "measures"
+```
+
+This is all the parameter names you'll use for making the api calls.  Note it's *not* the business objects, but the key names you'll use to access the parameters
+
+In the case where the values are part of a key/value pair, make these the actual key names for simplicity.
+
+
+#### src/model/api/datausa/DataUsaEndpoint.ts
+as this is a GET call, the params we pass in will be appended to the URL.
+
+```
+export class DataUsaEndpoint extends HttpApiEndpoint {
+
+    parms = new Map<DataUsaParm, string>();
+    httpMethod = "GET";
+    basePath = `${RunCfg.getInstance().dataUsaHost()}/api/data`;
+    getHeaders(): any {
+        return {
+            'accept': 'text/html,application/xhtml+xml,application/xml'
+        }
+    }
+
+    getUrl(): string {
+        return`${this.basePath}?${this.urlParmMap()}`;
+    }
+```
+
+
+Now we have to figure out what our return will look like.
+
+The raw return looks something like this:
+```
+{
+"data": [
+{
+"ID Nation": "01000US",
+"Nation": "United States",
+"ID Year": 2014,
+"Year": "2014",
+"Population": 314107084,
+"Slug Nation": "united-states"
+},
+{
+"ID Nation": "01000US",
+"Nation": "United States",
+"ID Year": 2013,
+"Year": "2013",
+"Population": 311536594,
+"Slug Nation": "united-states"
+}
+],
+"source": [
+{
+"measures": [
+"Population"
+],
+"annotations": {
+"source_name": "Census Bureau",
+"source_description": "The American Community Survey (ACS) is conducted by the US Census and sent to a portion of the population every year.",
+"dataset_name": "ACS 5-year Estimate",
+"dataset_link": "http://www.census.gov/programs-surveys/acs/",
+"table_id": "B01003",
+"topic": "Diversity",
+"subtopic": "Demographics"
+},
+"name": "acs_yg_total_population_5",
+"substitutions": []
+}
+]
+}
+```
+
+In our case, let's assume we make the call and just want to deal with the Nation, Year, and Population values.  That means we move on and...
+
+### Create the business objects
+
+```
+export class NationPopulation {
+Nation: string;
+Year: number;
+Population: number;
+}
+
+export class Annotation {
+    source_name: string;
+    source_description: string;
+    dataset_name: string;
+    dataset_link: string;
+    table_id: string;
+    topic: string;
+    subtopic: string;
+}
+
+export class Source {
+    measures: string[];
+    annotations: Annotation;
+    name: string;
+}
+```
+
+We create an implementation of the ApiCall interface to define what our request and response will look like.
+Trust me, that'll make it soooo much easier to work with later on.
+
+At this point, we're not feeding a business object into the request that needs any special parsing,
+so we make the request: any.
+
+However, we're getting back something that's a bit more complex.  
+
+Depending on the complexity of what's coming back, validating it as an object will be easier than 
+pulling out individual fields.
+
+While we could define on the fly in the DataUsaCall itself like so:
+response: {
+data: NationPopulation[];
+source: Source;
+}
+
+we're going to pull that up into it's own object.
+
+```
+export class DataUseEndpointResponse {
+data: NationPopulation[];
+source: Source;
+}
+```
+
+DataUsaApiCall looks like this:
+
+```
+export class DataUseApiCall {
+request: any;
+response: DataUseEndpointResponse;
+}
+```
+
+The ApiCallMgr interface is implemented to handle the interaction back and forth with the test itself.  To support other types of api calls, we don't implement ApiCallMgr directly.  HttpCallMgr implements the ApiCallMgr and gives us some handy utilities for dealing with the specifics of http api calls
+
+Our next step is to extend HttpCallMgr with DataUsaCallMgr.
+
+This is pretty straightforward in our case.  We just need to give it specifically the type of endpoint and api call we'll be using.
+
+```
+export class DataUsaCallMgr extends HttpApiCallMgr {
+endpoint: DataUsaEndpoint = new DataUsaEndpoint();
+call: ApiCall = new DataUsaApiCall();
+}
+```
+
+and at that point, our test is pretty straightforward:
+
+```
+it("test DataUsaApi endpoint", () => {
+    const callMgr: DataUsaCallMgr = new DataUsaCallMgr();
+    callMgr.addParm("drilldowns","Nation");
+    callMgr.addParm("measures","Population");
+
+    callMgr.submit<DataUsaApiCall>()
+        .then( apiCall => {
+            const responseData = apiCall.response.data;
+            const responseSource = apiCall.response.source;
+
+            // pull out just the 2013 data
+            const dataFor2013: NationPopulation = responseData.filter( (nationData) => nationData.Year === "2013")[0];
+            expect(dataFor2013.Population === 311536594, "2013 population data retrieved should be as expected").to.be.true;
+            expect(responseSource[0].annotations.dataset_name === "ACS 5-year Estimate", "dataset_name in source data should be as expected").to.be.true;
+        })
+})
+```
 
 
 
