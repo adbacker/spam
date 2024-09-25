@@ -69,9 +69,11 @@ Actions change the state of the system under test.  Actions are made up of other
 
 Queries read the state of the system under test.  They shouldn't change state.  Queries are made up of interactions and possibly other queries.
 
-Interaction (abbreviated ixn because we're lazy.  Kinda like i18n for internationalization ;-) )
 
-From a UI perspective, interactions are the atomic system interactions.  Pushing a button, filling in a text box, making a selection from a drop down.
+### Interaction 
+(abbreviated ixn because we're lazy.  Kinda like i18n for internationalization ;-) )
+
+Interactions are the atomic system interactions.  Pushing a button, filling in a text box, making a selection from a drop down.
 
 
 ### Page model objects
