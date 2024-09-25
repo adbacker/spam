@@ -14,7 +14,7 @@ SPAM came out of a number of frustrations:
 > * https://johnfergusonsmart.com/beyond-page-objects-liberate-chains-ui-think/
 > * https://cucumber.io/blog/bdd/understanding-screenplay-(part-1)/
 > * https://www.slideshare.net/RiverGlide/refactoring-page-objects-the-screenplay-pattern
-* Multiple people contributing to an automation framework put stuff in different places.  Sometimes the same person 
+* Multiple people contributing to an automation framework will inevitably put stuff in different places.  Sometimes the same person 
   will put the same kinda stuff in different places depending on the day and whether they remember where they put it last week.
 * Given the above, figuring out whether something is already built can be all but impossible sometimes.
 
