@@ -18,8 +18,7 @@ SPAM came out of a number of frustrations:
   will put the same kinda stuff in different places depending on the day and whether they remember where they put it last week.
 * Given the above, figuring out whether something is already built can be all but impossible sometimes.
 
-SPAM gives concrete guidance on where to put what, how to get at it, and how to build tests with it.  Framework 
-coding standards.  Of course, YMMV but it can at least give you some place to start.
+SPAM gives concrete guidance on where to put what, how to get at it, and how to put said bits together to build tests.
 
  If you're familiar with the screenplay pattern, you'll see some similar verbiage.  That's intentional.  While SPAM 
  isn't the screenplay pattern, it is organization and abstraction building blocks that can be used with the screenplay pattern. 
