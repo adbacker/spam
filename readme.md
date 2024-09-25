@@ -23,10 +23,11 @@ SPAM gives concrete guidance on where to put what, how to get at it, and how to 
  If you're familiar with the screenplay pattern, you'll see some similar verbiage.  That's intentional.  While SPAM 
  isn't the screenplay pattern, it is organization and abstraction building blocks that can be used with the screenplay pattern. 
 
-SPAM came out of frustration with maintaining POM based frameworks as they passed a certain size.  Using the page 
-object model with a super simple app can be reasonably maintainable.  But if your apps are of any complexity SPAM will let you scale to thousands of tests without tearing your hair out.  Well, less hair anyway.
+The page object model tends to get unwieldy past a handful of pages and a couple dozen tests.  
 
-This is an example test framework implementation using cypress, typescript, and  SPAM to test the [petclinic web app]( https://github.com/spring-projects/spring-petclinic ). You'll need the petclinic app running locally in order for the tests to work.  
+SPAM will let you scale to thousands of tests without tearing your hair out.  (Well, less hair anyway.)
+
+This repo is an example test framework using cypress, typescript, and SPAM to test the [petclinic web app]( https://github.com/spring-projects/spring-petclinic ). You'll need the petclinic app running locally in order for the tests to work.  
 
 The easiest way to get petclinic running is to install docker and pull their prebuilt image:
  ```
@@ -35,7 +36,9 @@ The easiest way to get petclinic running is to install docker and pull their pre
 
 
 ## What's with all the weird "then" stuff??
-If you're not familiar with cypress, know that all the "then()" bits are intrinsic to how it does things.  The ".then" means "make sure everything is done before moving on"  (that's not exactly accurate, but it's a useful lie ;-) )  
+If you're not familiar with cypress, know that all the "then()" bits are intrinsic to how it does things.  The ".then" means "make sure everything is done before moving on"  
+
+(that's not exactly accurate, but it's a useful lie ;-) )  
 
 Even better check out https://docs.cypress.io/guides/core-concepts/introduction-to-cypress.
 
